@@ -29,5 +29,18 @@ func TestOk(t *testing.T) {
 	if rr.Body.String() != `{"Field1":1234,"Field2":"test string"}` {
 		t.Fatalf(`Unexpected result, got: %s`, rr.Body.String())
 	}
+}
+
+func TestCreated(t *testing.T) {
+	rr := httptest.NewRecorder()
+	Created(rr, &fakeJSON{Field1: 1234, Field2: "test string"})
+
+	if rr.Code != http.StatusCreated {
+		t.Fatalf(`Unexpected result, got: %d`, rr.Code)
+	}
+
+	if rr.Body.String() != `{"Field1":1234,"Field2":"test string"}` {
+		t.Fatalf(`Unexpected result, got: %s`, rr.Body.String())
+	}
 
 }
