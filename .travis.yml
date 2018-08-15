@@ -1,4 +1,15 @@
 language: go
 go:
 - 1.9
-- "1.10"
+- '1.10'
+- tip
+install:
+- go get code.google.com/p/go.tools/cmd/cover
+- go get github.com/mattn/goveralls
+script:
+- go test -v -covermode=count -coverprofile=coverage.out
+- $(go env GOPATH | awk 'BEGIN{FS=":"} {print $1}')/bin/goveralls -coverprofile=coverage.out
+  -service=travis-ci -repotoken $COVERALLS_TOKEN
+env:
+  global:
+    secure: YpvXcQEE9nSYRN2WfgHSaC87ce16IpJhc0dDGaBg3dl+VS8gioNjeOFv4atxX6RfxZ45zJw0NjMPg28AmImsXs04eJmTEkku1hCrYPoslt4jUeMi/er9Z5vKuTFRvEdki9LYHPrWww21h3xVSIn0B7FzvZXDn2FmXp80y8L+AdTtoIQQr3gds7lPh8ayVhHQDQsduwJkIEZXGBtEKiFe/CBVoVJlSM+q2N7tqEMKgi/303dEcyO0go6URqUllDeUZISGoZpcLNHFpH0u9KpcbZKfAUxQFysWV2jzr+J4jG5UTXJtOH83cSZhYpFQvISZMbW44Qf2ofk4hjouM2HKjtq1bPfUChtCPrBlAoNPLha2zgNHvfqQ4Sv9WZKsPEPO9Ciq+M1I2iM9NlaRBfE6gpfd/9CgANKpKGLVup28U7V2etl02gCwOtSNMsExOf72p9hIazhRflJ4kDSqhjhkQjeSRJQ4mL9tysMeq2LDnVKfQZJUyxuaETlmqI/WF/ZogdySWP5ifoflaTdDdkUfQFtENIzxeK/3auuIAcwcCF1xN3TyHT+eN2dcVKFph76Y9kmj/LXrlS0hP0n+IgMi99vVc3I8VV8b7jaQy8xs8IslIHxilWNwqROuHpWolI8cjvm1hL/DZ1bchFL3aWy2Jq/yS7a3+BRj/GB0p2qXjy0=
