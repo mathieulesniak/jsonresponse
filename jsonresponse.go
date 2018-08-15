@@ -26,12 +26,14 @@ func Created(w http.ResponseWriter, result interface{}) {
 func BadRequest(w http.ResponseWriter, err error) {
 	jsonHeaders(w)
 	w.WriteHeader(http.StatusBadRequest)
+	w.Write(jsonError(err))
 }
 
 // NotFound return 404 Not Found response
 func NotFound(w http.ResponseWriter, err error) {
 	jsonHeaders(w)
 	w.WriteHeader(http.StatusNotFound)
+	w.Write(jsonError(err))
 }
 
 func jsonHeaders(w http.ResponseWriter) {
