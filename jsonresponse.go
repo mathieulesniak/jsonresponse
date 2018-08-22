@@ -36,6 +36,7 @@ func Unauthorized(w http.ResponseWriter, err error) {
 	w.Write(jsonError(err))
 }
 
+// Forbidden return a 403 Forbidden response
 func Forbidden(w http.ResponseWriter, err error) {
 	jsonHeaders(w)
 	w.WriteHeader(http.StatusForbidden)
@@ -49,6 +50,7 @@ func NotFound(w http.ResponseWriter, err error) {
 	w.Write(jsonError(err))
 }
 
+// InternalServerError return 500 Internal Server Error response
 func InternalServerError(w http.ResponseWriter, err error) {
 	jsonHeaders(w)
 	w.WriteHeader(http.StatusInternalServerError)
