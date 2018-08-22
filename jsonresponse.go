@@ -29,10 +29,29 @@ func BadRequest(w http.ResponseWriter, err error) {
 	w.Write(jsonError(err))
 }
 
+// Unauthorized return a 401 Unauthorized response
+func Unauthorized(w http.ResponseWriter, err error) {
+	jsonHeaders(w)
+	w.WriteHeader(http.StatusUnauthorized)
+	w.Write(jsonError(err))
+}
+
+func Forbidden(w http.ResponseWriter, err error) {
+	jsonHeaders(w)
+	w.WriteHeader(http.StatusForbidden)
+	w.Write(jsonError(err))
+}
+
 // NotFound return 404 Not Found response
 func NotFound(w http.ResponseWriter, err error) {
 	jsonHeaders(w)
 	w.WriteHeader(http.StatusNotFound)
+	w.Write(jsonError(err))
+}
+
+func InternalServerError(w http.ResponseWriter, err error) {
+	jsonHeaders(w)
+	w.WriteHeader(http.StatusInternalServerError)
 	w.Write(jsonError(err))
 }
 

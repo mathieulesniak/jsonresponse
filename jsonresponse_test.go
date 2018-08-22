@@ -58,6 +58,45 @@ func TestBadRequest(t *testing.T) {
 	}
 }
 
+func TestUnauthorized(t *testing.T) {
+	rr := httptest.NewRecorder()
+	Unauthorized(rr, errors.New("this is an unauthorized request"))
+
+	if rr.Code != http.StatusUnauthorized {
+		t.Fatalf(`Unexpected result, got code: %d`, rr.Code)
+	}
+
+	if rr.Body.String() != `{"error_message":"this is an unauthorized request"}` {
+		t.Fatalf(`Unexpected result, got: %s`, rr.Body.String())
+	}
+}
+
+func TestForbidden(t *testing.T) {
+	rr := httptest.NewRecorder()
+	Forbidden(rr, errors.New("this is a forbidden request"))
+
+	if rr.Code != http.StatusForbidden {
+		t.Fatalf(`Unexpected result, got code: %d`, rr.Code)
+	}
+
+	if rr.Body.String() != `{"error_message":"this is a forbidden request"}` {
+		t.Fatalf(`Unexpected result, got: %s`, rr.Body.String())
+	}
+}
+
+func TestInternalServerError(t *testing.T) {
+	rr := httptest.NewRecorder()
+	InternalServerError(rr, errors.New("this is a internal server error"))
+
+	if rr.Code != http.StatusInternalServerError {
+		t.Fatalf(`Unexpected result, got code: %d`, rr.Code)
+	}
+
+	if rr.Body.String() != `{"error_message":"this is a internal server error"}` {
+		t.Fatalf(`Unexpected result, got: %s`, rr.Body.String())
+	}
+}
+
 func TestNotFound(t *testing.T) {
 	rr := httptest.NewRecorder()
 	NotFound(rr, errors.New("resource not found"))
