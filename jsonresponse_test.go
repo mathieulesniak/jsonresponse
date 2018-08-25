@@ -45,6 +45,19 @@ func TestCreated(t *testing.T) {
 	}
 }
 
+func TestNoContent(t *testing.T) {
+	rr := httptest.NewRecorder()
+	NoContent(rr)
+
+	if rr.Code != http.StatusNoContent {
+		t.Fatalf(`Unexpected result, got: %d`, rr.Code)
+	}
+
+	if rr.Body.String() != "" {
+		t.Fatalf(`Unexpected result, got: %s`, rr.Body.String())
+	}
+}
+
 func TestBadRequest(t *testing.T) {
 	rr := httptest.NewRecorder()
 	BadRequest(rr, errors.New("this is a bad request"))

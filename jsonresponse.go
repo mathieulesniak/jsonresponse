@@ -22,6 +22,12 @@ func Created(w http.ResponseWriter, result interface{}) {
 	w.Write(jsonBody(result))
 }
 
+// NoContent return 204 No Content response
+func NoContent(w http.ResponseWriter) {
+	jsonHeaders(w)
+	w.WriteHeader(http.StatusNoContent)
+}
+
 // BadRequest return 400 Bad Request response
 func BadRequest(w http.ResponseWriter, err error) {
 	jsonHeaders(w)
